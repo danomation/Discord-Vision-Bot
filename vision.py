@@ -30,7 +30,7 @@ def getDescription(url):
             {
                 "role": "user",
                 "content": [
-                    {"type": "text", "text": "Describe the image in detail using as many proper names for each of the items as possible."},
+                    {"type": "text", "text": "Describe the image in detail using as many proper names for each of the items as possible. Limit 2000 characters in response."},
                     {
                         "type": "image_url",
                         "image_url": url,
@@ -54,6 +54,7 @@ async def on_message(message):
             if attachment.filename.endswith('.jpg') or attachment.filename.endswith('.png'):
                 url = message.attachments[0].url
                 description = getDescription(url)
-                await message.reply(description + "\n\nHere's my best effort in creating the image:  " + getImage(description))
+                await message.reply(description)
+                await message.reply("\n\nHere's my best effort in creating the image:  " + getImage(description))
 
 client.run(yourdiscordapikey)
